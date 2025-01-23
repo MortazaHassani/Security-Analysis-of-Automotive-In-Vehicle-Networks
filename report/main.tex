@@ -274,7 +274,7 @@ Since CAN is a broadcast Network, all nodes receive data that is transmitted hen
 Exploiting these vulnerabilities can lead to the execution of the following attacks on the CAN bus:
 
 \begin{enumerate}
-    \item \textbf{Denial-of-Service (DoS) attacks:} By \underline{exploiting} the arbitration mechanism, attackers inject high-priority messages to dominate the bus, preventing legitimate ECUs from communicating. Critical vehicle systems are disrupted, potentially compromising safety.
+    \item \textbf{Denial-of-Service (DoS) attacks:} By exploiting the arbitration mechanism, attackers inject high-priority messages to dominate the bus, preventing legitimate ECUs from communicating. Critical vehicle systems are disrupted, potentially compromising safety.
     \item \textbf{Fuzzing Attacks:} Attackers send random or malformed CAN messages to test how ECUs respond to unexpected inputs. This can reveal weaknesses in ECU software and hardware, causing crashes or unexpected behavior.
     \item \textbf{Replay Attacks:} Replay attacks occur when an attacker intercepts legitimate CAN messages and retransmits them at a later time, potentially causing unauthorized actions or disruptions. Since CAN cannot differentiate between original and replayed messages, this can lead to unintended consequences, such as unlocking doors. The wireless key fob functionality is particularly vulnerable to this type of attack, making it a common target for exploitation.
     \item \textbf{Impersonation or Spoofing attacks:} By pretending to be a legitimate ECU, attackers inject malicious frames into the network. This can manipulate the vehicle system, such as deploying airbags or tampering with engine performance.
@@ -522,7 +522,6 @@ These  technologies hold significant potential to transform the security landsca
             \item \textbf{AE Fuzzing:} Targets Ethernet stacks by injecting malformed frames or protocol-specific data (e.g., ARP requests). This helps uncover vulnerabilities like buffer overflows or improper error handling.
         \end{itemize}
         
-    \item \textbf{RQ7: What security measures are currently in use for CAN and AE?}    
 \end{itemize}
 
 
