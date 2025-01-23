@@ -4,6 +4,7 @@
 \usepackage{float}
 \usepackage{graphicx} % Required for inserting images
 
+
 \usepackage{cite}
 \usepackage{caption}
 
@@ -15,6 +16,8 @@
 \usepackage{multirow}
 \usepackage{enumerate}
 \usepackage[shortlabels]{enumitem}
+\usepackage{longtable}
+\usepackage{array}
 \usepackage{amsmath}
 \usepackage{nomencl} % For nomenclature and acronyms
 \makenomenclature % Activate nomenclature
@@ -45,14 +48,20 @@
 \toc % creates the table of contents
 
 %------------ Report body ----------------
+\section*{Contribution}
+This project was a collaborative effort, with each team member contributing their expertise to ensure successful completion. In the initial phase, we jointly conducted a comprehensive literature review, analyzing several sources before shortlisting three key references that were most relevant to our research. Together, we formulated the research questions that guided the direction of the project. 
 
-\section{Abstract}
+Deborah focused on researching Automotive IVN Security Issues, vulnerabilities and threat modelling, while Mortaza focused on Identifying use cases, existing security measures and emerging trends for securing CAN and Automotive Ethernet. Both team members worked collaboratively on drafting, refining, and finalizing the report to ensure the project's success.
+
+\section*{Abstract}
+\addcontentsline{toc}{section}{Abstract}
 Automotive In-Vehicle Networks (IVNs) serve as the backbone for communication between various components and Electronic Control Units (ECUs) inside a vehicle's architecture. These enable seamless integration and/or operation of critical systems, such as powertrain, infotainment, advanced driver-assistance systems (ADAS) and safety mechanisms. However, the protocols used in IVNs, such as Controller Area Network (CAN) and Automotive Ethernet, at first place were designed with a focus on efficiency, reliability, and real-time communication rather than security. As a result, they lack robust mechanisms to protect against modern cyber threats. With the increasing connectivity of vehicles to external networks, such as the internet and mobile devices, the attack surface has expanded significantly, exposing vehicles to potential cyberattacks. This report provides a comprehensive analysis of the security challenges and vulnerabilities associated with CAN and Automotive Ethernet, studying some real-world attack scenarios, and proposes mitigation strategies to enhance the security of modern automotive systems.
 \\
 \\
 \emph{\textbf{Keywords:} Automotive Ethernet, CAN, V2X, Security}
 
-\section{Introduction}
+\section*{Introduction}
+\addcontentsline{toc}{section}{Introduction}
 With the shift towards software-defined vehicles, Autonomous vehicles and vehicle-to-everything (V2X) applications, there is an increasing demand for high bandwidth communication in the automotive domain. Over the years, automotive in-vehicle networks have comprised various protocols, ranging from high bandwidth, fault-tolerant ones supporting safety-critical applications such as Powetrain and braking system,  to low bandwidth protocols supporting secondary applications like HVAC and body control module (BCM).
 
 The Controller Area Network (CAN)  has been the backbone of IVNs, providing reliable and deterministic communication for critical functions like engine control and braking systems. However, as vehicles become increasingly connected, CAN's limitations in terms of bandwidth and lack of built-in security pose significant challenges.
@@ -90,7 +99,7 @@ Modern intelligent vehicles face increasing threats as adversaries exploit these
 
 
 \subsection{Scope of Study}
-The automotive IVN, is made up of several networking protocols, CAN, CAN-FD, Automotive Ethernet, Flexray, LIN and MOST. However, for the scope of this project we will focus on CAN and Automotive Ethernet. This decision is based on the following considerations:
+The automotive IVN, is made up of several networking protocols, CAN, CAN-FD, Automotive Ethernet, Flexray, LIN and MOST. However, for the scope of this project we wiil focus on CAN and Automotive Ethernet. This decision is based on the following considerations:
 
 \begin{enumerate}
     \item \textbf{Flexray:} Although it offers higher bandwidth and fault tolerance compared to CAN, its high implementation cost has limited its adoption. Additionally, the growing adoption of Automotive Ethernet is gradually phasing out FlexRay as the preferred high-bandwidth solution.
@@ -99,7 +108,20 @@ The automotive IVN, is made up of several networking protocols, CAN, CAN-FD, Aut
 \end{enumerate}
 
 \section{Methodology}
-To achieve the goal of this research, a comprehensive literature study was conducted to gain a thorough understanding of the domain, the vehicle EE architecture, and the IVN protocols used, as well as the security vulnerabilities and mitigations currently implemented.
+To achieve the goal of this research, we adopted a structured and systematic approach to gain a thorough understanding of the domain (vehicle EE architecture and IVN protocols), and the associated security challenges. By conducting a comprehensive literature study and evaluating vulnerabilities,  our research aims to address the critical security gaps in modern IVNs and evaluate the solutions being implemented to mitigate them.
+
+Our methodology consists of four key steps:
+
+\begin{enumerate}
+    \item \textbf{Literature Review:} We conduct a thorough review of existing literature to establish a deep understanding of the current vehicle EE architecture, IVN protocols, and associated security challenges.
+    \item \textbf{Vulnerability Assessment:} We identify specific weaknesses in CAN and AE protocols that adversaries could exploit, using both theoretical and practical perspectives.
+    \item \textbf{Analysis of Real-World Attacks:} We connect theoretical vulnerabilities to practical attack scenarios, providing a clear understanding of their implications on real-world systems.
+    \item \textbf{Mitigation Strategies:} We evaluate and propose mitigation solutions based on identified vulnerabilities and attack surface.
+\end{enumerate}
+
+\subsection{Limitations of Methodology}
+Given more time, we would have addressed other IVN protocols, such as FlexRay and LIN, to provide a more holistic view of Automotive IVN security. Additionally, we would have delved deeper into the security challenges posed by vehicular external networks, such as cellular and Wi-Fi, to address software-defined vehicle challenges comprehensively. Furthermore, a more detailed threat modeling of the attack landscape would have been developed.
+
 
 \subsection{Literature Study}
 The study focused on reviewing the following key papers:
@@ -144,10 +166,10 @@ The report is organized into the following sections
 \end{description}
 
 \section{Background}
-This section presents study of available technologies used in vehicle communication.
+This section presents study of available technologies used in vehicle communication.\cite{kaiwartya2016internet}
 
 \subsection{The Vehicle E/E architecture}
-The E/E system architecture of automotive vehicles has evolved over the years from a flat backbone architecture where the backbone networking technology was CAN-based. As the number of ECUs connected to the backbone expanded and additional subnets and sub systems were introduced, data transport on the backbone became a bottleneck and as such the flat backbone architecture evolved to domain distributed and domain centralized architectures and now the future is zonal architecture.
+The E/E system architecture of automotive vehicles has evolved over the years from a flat backbone architecture where the backbone networking technology was CAN-based. As the number of ECUs connected to the backbone expanded and additional subnets and sub systems were introduced, data transport on the backbone became a bottleneck and as such the flat backbone architecture evolved to domain distributed and domain centralized architectures and now the future is zonal architecture.\cite{zerfowski2019functional}
 
 \subsubsection{Domain Distributed E/E Architecture}
 In this architecture, Electronic Control Units (ECUs) with similar functionalities are grouped into functional domains such as Telematics, Powertrain, Body, and Chassis. ECUs in different domains communicate with each other via a central gateway.
@@ -164,23 +186,24 @@ The in-vehicle network is an enabler for the vehicle E/E architecture. It facili
 For communication between onboard and offboard services, a combination of both wireless and wired networking technologies is used. Wireless technologies such as Wi-fi, cellular networks and Bluetooth enable connectivity to cloud services  this is usually housed in the telematics domain. Whereas classical Ethernet, 100 Base-TX or CAN is used for On-Board Diagnostics (OBD).
 
 \subsubsection{CAN}
-CAN is the most widely used in-vehicle networking protocol. It is a bus-based technology where all ECUs are attached and share the same wiring. CAN is a broadcast technology where every node can transmit and receive frames over the medium. To prevent collisions, the arbitration method is used where the node with the highest priority is allowed to communicate on the bus. The CAN bus consists of two twisted pair wires known as the 𝐶𝐴𝑁𝐻(CAN High) and 𝐶𝐴𝑁𝐿(CAN Low)  which enhances immunity to EMI. Classical CAN supports data rates up to 1 Mbps and a payload of 8 bytes. However, a better version of CAN exists with improved data rates of 8 Mbps and an extended payload of 64 bytes.
+CAN is the most widely used in-vehicle networking protocol. It is a bus-based technology where all ECUs are attached and share the same wiring. CAN is a broadcast technology where every node can transmit and receive frames over the medium. To prevent collisions, the arbitration method is used where the node with the highest priority is allowed to communicate on the bus. The CAN bus consists of two twisted pair wires known as the \emph{CANH}(CAN High) and \emph{CANL}(CAN Low)  which enhances immunity to EMI. Classical CAN supports data rates up to 1 Mbps and a payload of 8 bytes. However, a better version of CAN exists with improved data rates of 8 Mbps and an extended payload of 64 bytes.
 
 \subsubsection{Automotive Ethernet}
 Automotive Ethernet is a special type of Ethernet that fulfils the stringent requirements of EMC in the automotive environment [3]. It is also designed to ensure reliable and deterministic communication, which is crucial for safety-critical applications and real-time communication through the use of the protocols, AVB and TSN.
-Automotive Ethernet can currently support data rates of up to 10 Gbps[3], a significant improvement compared to the traditional in-vehicle networking protocols. This high data rate capability coupled with traffic prioritization and shaping (QoS)enables the support of advanced automotive applications such as autonomous driving and V2X . The AE technology is based on swithces which allows efficient data routing and minimizes latency making it suitable for the modern vehicle.
+
+Automotive Ethernet can currently support data rates of up to 10 Gbps[3], a significant improvement compared to the traditional in-vehicle networking protocols. This high data rate capability coupled with traffic prioritization and shaping (QoS)enables the support of advanced automotive applications such as autonomous driving and V2X . The AE technology is based on switches which allows efficient data routing and minimizes latency making it suitable for the modern vehicle.
 
 \subsubsection{LIN}
 LIN is a low-cost serial communication protocol. Unlike CAN being a multi master communication protocol, LIN is a single master networking protocol. The data rate is up to 20 kbps making it a useful technology for low-speed, non-safety critical tasks such as comfort clusters, doors and seat
 
 \subsubsection{FlexRay}
 FlexRay evolved as an alternative for more demanding tasks which needed better performance than CAN could provide. It operates at a higher data rate of 10 Mbit/s and is used for applications such as Drive-by-wire, active suspension, and adaptive cruise control. FlexRay is an innovative communication protocol which combines event-driven and deterministic communication with static and dynamic segments. A static segment is reserved for deterministic data, while a dynamic segment is used for priority based event-driven communication
-
 \subsubsection{MOST}
 MOST is a high-speed protocol developed for infotainment and media oriented communication. Its maximum data rate is 24.8 Mbit/s and it can support up to 64 nodes. However because of the adoption of Automotive Ethernet, the use of most is decreasing.
 
 Below is a table showing the various protocols and their bandwidth;
-\begin{table}[h!]
+
+\begin{table}[H]
     \centering
     \begin{tabular}{|>{\raggedright\arraybackslash}p{3cm}|>{\raggedright\arraybackslash}p{4cm}|}
     \hline
@@ -201,18 +224,17 @@ Below is a table showing the various protocols and their bandwidth;
     \label{tab:protocols}
     \end{table}
 \section{Security Issues and Vulnerabilities }
-Vehicles have relatively long lifecycles, during which attack patterns and vulnerabilities evolve, exposing them to new and emerging threats. This section outlines the major attack surfaces and vulnerabilities associated with the CAN and Automotive Ethernet AE networks
+Vehicles have relatively long life cycles, during which attack patterns and vulnerabilities evolve, exposing them to new and emerging threats.\cite{talic_security} This section outlines the major attack surfaces and vulnerabilities associated with the CAN and Automotive Ethernet AE networks
 
 \subsection{Attack Surface of CAN and AE}
-Adversaries target specific entry points to exploit vulnerabilities in CAN and Automotive Ethernet networks. These attack surfaces can be categorized as follows
-
+Adversaries target specific entry points to exploit vulnerabilities in CAN and Automotive Ethernet networks. These attack surfaces can be categorized as follows;
 \subsubsection{Remote/offboard attack}
 These attacks target external communication interfaces and systems, primarily through the telematics unit. The telematics unit is the domain in the vehicle that consists of wireless communication interfaces such as:
 
 \begin{enumerate}
     \item \textbf{Wi-Fi:} Attackers can exploit unsecured or poorly configured vehicle Wi-Fi networks to gain unauthorized access to in-vehicle systems.
     \item \textbf{Bluetooth:} Vulnerable to pairing exploits or unauthorized connections, allowing attackers to manipulate connected systems.
-    \item \textbf{Wireless Key Fobs:} Replay or spoofing attacks, such as the TeslaX attack, can enable unauthorized access or control of the vehicle. Additionally, the constant power-on state of certain ECUs, like those in keyless comfort entry systems, can be used as an attack vector, even when the vehicle is parked and locked.
+    % \item \textbf{Wireless Key Fobs:} Replay or spoofing attacks, such as the TeslaX attack, can enable unauthorized access or control of the vehicle. Additionally, the constant power-on state of certain ECUs, like those in keyless comfort entry systems, can be used as an attack vector, even when the vehicle is parked and locked.
     \item \textbf{Cellular Networks:} Used for vehicle connectivity and over-the-air updates, these networks can be targeted to infiltrate telematics systems.
 \end{enumerate}
 
@@ -220,7 +242,7 @@ These attacks target external communication interfaces and systems, primarily th
 These require physical access to the vehicle through the following interfaces:
 
 \begin{enumerate}
-    \item \textbf{OBD-II Port:} Used for diagnostics, this port can be exploited to inject malicious CAN messages.
+    \item \textbf{OBD-II Port:} Used for diagnostics, this port can be exploited to inject malicious CAN messages.\cite{klinedinst2016onboard}
     \item \textbf{USB Ports:} Unsecured USB interfaces can be used to upload malware.
     \item \textbf{Electric Vehicle (EV) Charging Ports}
     \item \textbf{Ethernet Switches:} Attackers can target AE switches to intercept, reroute, or block critical data flows within the network.
@@ -228,6 +250,7 @@ These require physical access to the vehicle through the following interfaces:
 
 \subsubsection{Hybrid Attacks}
 Adversaries often combine remote and physical attack vectors.  An attacker might exploit a vulnerability in the telematics unit remotely and then gain deeper access during physical interaction with the vehicle for further post exploitation.
+Figure~\ref{fig:Hybrid Attacks}  illustrates a hybrid attack scenario where adversaries combine remote and physical attack vectors to exploit vulnerabilities in a vehicle's telematics unit. Initially, the attacker gains remote access, then physically interacts with the vehicle to deepen their exploitation and compromise critical systems.
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{figures/hybrid.jpg}
@@ -279,36 +302,114 @@ Switches maintain a MAC table to map MAC addresses to switch ports. In a MAC tab
 \subsubsection{ARP table poisoning}
 Attackers send fake ARP messages to associate their MAC address with the IP address of a legitimate device. This allows them to intercept, modify, or stop data intended for that device.
 
+\subsection{Threat Modeling Using STRIDE}
+The STRIDE framework using the Microsoft Threat Modelling Tool was used for the threat modeling of CAN and Automotive ethernet. This approach allowed us to identify potential threats and assess their impact and exploitation methods. 
+
+\subsubsection{Assumptions}
+In our threat model, we made the following assumptions:
+\begin{itemize}
+    \item Vehicles using only CAN
+    \item Vehicles using only Automotive Ethernet
+    \item Vehicles using a combination of both
+    
+\end{itemize}
+
+\subsubsection{Domain Segmentation}
+For the purposes of this threat model, the analysis focused on five key domains within the vehicle system:
+\begin{enumerate}
+    \item ADAS (Advanced Driver Assistance Systems)
+    \item Powertrain
+    \item EV-ECU (Electric Vehicle - Electronic Control Unit)
+    \item Telematics
+    \item Infotainment
+\end{enumerate}
+
+\subsubsection{Trust Zones}
+The system was segmented into three trust zones:
+\begin{enumerate}
+    \item \textbf{Untrusted Zone:} Includes external elements such as user phones and cloud services that access vehicle services like OTA (Over-The-Air) updates. These elements are considered high-risk.
+    \item \textbf{Exposed Zone:} Hosts components that connect directly with elements in the untrusted zone. This zone serves as the intermediary layer, bridging external networks with the vehicle's internal systems.
+    \item \textbf{Critical Zone:} Contains components responsible for safety-critical functions within the vehicle.
+\end{enumerate}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/zone.jpg}
+    \caption{Stride Threat Model of CAN and Automotive Ethernet in Vehicle system}
+    \label{fig:Stride}
+\end{figure}
+
+Below is the STRIDE table These threats represent common yet critical vulnerabilities in both Automotive Ethernet and CAN. Each threat aligns with STRIDE categories and highlights realistic attack vectors that could compromise IVN security;
+\begin{longtable}{|>{\raggedright\arraybackslash}p{2cm}|>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}p{3cm}|>{\raggedright\arraybackslash}p{3cm}|>{\raggedright\arraybackslash}p{3cm}|}
+    \hline
+    \textbf{Threat Type} & \textbf{Description} & \textbf{Assets Affected} & \textbf{Exploitation Method} & \textbf{Example Scenario} \\
+    \hline
+    \endfirsthead
+    \hline
+    \textbf{Threat Type} & \textbf{Description} & \textbf{Assets Affected} & \textbf{Exploitation Method} & \textbf{Example Scenario} \\
+    \hline
+    \endhead
+    \hline
+    \endfoot
+    \hline
+    \endlastfoot
+    Spoofing & An adversary may gain unauthorized access to resources by impersonating a legitimate ECU or gateway. & ECUs, Gateways & Sending falsified CAN/Ethernet packets mimicking legitimate nodes. & An attacker spoofs an ECU to disrupt powertrain functionality. \\
+    \hline
+    Spoofing & An adversary can exploit the gateway to mimic external entities like mobile devices. & Gateways, Mobile Devices & Using a rogue mobile app to spoof a legitimate device communicating via V2X. & A malicious app sends fake location data to manipulate navigation. \\
+    \hline
+    Tampering & An adversary may alter Ethernet frames or CAN messages in transit. & CAN Bus, Ethernet Frames & Man-in-the-middle attack modifies critical commands or sensor data. & Modifying braking system commands in CAN messages. \\
+    \hline
+    Tampering & An adversary may inject false diagnostic messages via the OBD-II port. & CAN Bus, Diagnostic Tools & Exploiting physical access to the OBD-II port to inject tampered commands. & Overwriting firmware using false diagnostic instructions. \\
+    \hline
+    Information Disclosure & An adversary can gain access to sensitive unencrypted data flowing between nodes. & Ethernet Frames, CAN Bus & Using sniffing tools to intercept network traffic. & Capturing unencrypted CAN messages to reverse-engineer ECU commands. \\
+    \hline
+    Information Disclosure & An adversary may intercept OTA update data during transmission to the vehicle. & Cloud Services, Gateways & Exploiting lack of encryption in OTA updates to obtain sensitive data. & An attacker captures vehicle firmware updates from the cloud. \\
+    \hline
+    Denial of Service (DoS) & Flooding the CAN Bus or Ethernet network with high-priority messages, disrupting legitimate communication. & CAN Bus, Ethernet Switch & Overloading the network to prevent normal operation of ECUs. & A malicious device floods the CAN Bus, disabling ADAS functionality. \\
+    \hline
+    Denial of Service (DoS) & Exploiting vulnerabilities in the telematics gateway to disrupt communication between cloud and vehicle systems. & Telematics Gateway, Cloud Services & Sending malformed packets to crash the gateway or block data flow. & An attacker crashes the telematics gateway, disabling V2X communication. \\
+    \hline
+    Elevation of Privilege & An adversary may gain access to higher-privileged functions by exploiting gateway or ECU vulnerabilities. & Gateways, ECUs & Exploiting unpatched vulnerabilities or weak access control mechanisms. & Gaining control over the ADAS system by exploiting a gateway flaw. \\
+    \hline
+    Elevation of Privilege & An attacker may use unprotected diagnostic interfaces to gain access to critical vehicle systems. & OBD-II Port, ECUs & Exploiting the lack of authentication on the OBD-II interface. & Using the OBD-II port to disable vehicle security features like alarms. \\
+    \hline
+    \caption{Summary of Threats Identified in CAN and Automotive Ethernet Using STRIDE}
+    \label{tab:threat_analysis}
+\end{longtable}
+
 \section{Use Case Scenarios}
 
-In this section, we outline two use cases relevant to our study.
+In this section, we outline a use case relevant to our study.
 
-\subsection{Tesla X Wireless key fob  attack}
-\textbf{Brief Description}\\
-Researchers in KU leuven previously hacked the keyless entry of the me tesla model s. Although tesla improved the security in the new model, They found additional ways to bypass the tesla model . The same researchers hacked the Tesla Model S keyless entry system and now detail how the security measures implemented in the more recent Tesla Model X can be bypassed. They demonstrate how the battery powered Tesla Model X priced at over \$100.000 US can be stolen in a few minutes. The  Attack flow is shown below:
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\textwidth]{figures/tesla.jpg}
-    \caption{Tesla X Wireless key fob  attack}
-    \label{fig:Tesla X Wireless key fob  attack}
-\end{figure}
-\textbf{Identified issues}\\
-First, the Model X key fobs lack what's known as "code signing" for their firmware updates. Tesla designed its Model X key fobs to receive over-the-air firmware updates via Bluetooth by wirelessly connecting to the computer inside a Model X.
+% \subsection{Tesla X Wireless key fob  attack}
+% \textbf{Brief Description}\\
+% Researchers in KU leuven previously hacked the keyless entry of the me tesla model s. Although tesla improved the security in the new model, They found additional ways to bypass the tesla model . The same researchers hacked the Tesla Model S keyless entry system and now detail how the security measures implemented in the more recent Tesla Model X can be bypassed. They demonstrate how the battery powered Tesla Model X priced at over \$100.000 US can be stolen in a few minutes. The  Attack flow is shown below:
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.8\textwidth]{figures/tesla.jpg}
+%     \caption{Tesla X Wireless key fob  attack}
+%     \label{fig:Tesla X Wireless key fob  attack}
+% \end{figure}
+% \textbf{Identified issues}\\
+% First, the Model X key fobs lack what's known as "code signing" for their firmware updates. Tesla designed its Model X key fobs to receive over-the-air firmware updates via Bluetooth by wirelessly connecting to the computer inside a Model X.
 
 \subsection{2014 Jeep Cherokee Attack}
-The 2014 Jeep Cherokee attack by researchers Charlie Miller and Chris Valasek highlighted critical vulnerabilities in the CAN bus system and the connected Uconnect infotainment system, exposing how remote access to vehicle systems can lead to severe consequences.
-\textbf{Threat Analysis:}\\
+The 2014 Jeep Cherokee attack by researchers Charlie Miller and Chris Valasek highlighted critical vulnerabilities in modern automotive in-vehicle networks (IVNs).\cite{valasek2014survey} This research demonstrated how adversaries could exploit weaknesses in both the CAN bus system and the connected Uconnect infotainment system, to compromise vehicle safety and functionality exploitation.
+\subsubsection{overview of The Attack}
+The researchers remotely accessed the Jeep Cherokee through its Uconnect infotainment system,  via cellular network exploiting its lack of secure communication protocols. This entry point allowed them to bridge the gap between the vehicle's external connectivity and its internal CAN bus, enabling them to inject malicious commands and manipulate various vehicle systems. The attack highlighted the growing attack surface being a major threat to the  in-vehicle network.
+
+\subsubsection{Threat Analysis}
 \begin{itemize}
     \item \textbf{ID-Based Arbitration Exploitation:} Attackers injected high-priority malicious messages, leading to Denial of Service (DoS) and blocking legitimate ECUs from communication.
     \item \textbf{Lack of Authentication:} Allowed unauthorized access to send commands to the CAN bus, leading to unsafe vehicle control (e.g., disabling brakes, manipulating acceleration).
     \item \textbf{Lack of Confidentiality:} Broadcast nature of the CAN bus enabled interception and injection of malicious messages.
     \item \textbf{Remote Entry via Uconnect:} Exploited vulnerabilities in AE to gain access to the CAN network, showcasing a hybrid attack scenario.
 \end{itemize}
+This attack demonstrated how interconnected vehicle systems can be exploited to gain deeper access, emphasizing the need for stringent security measures in in-vehicle networks.
 
 \section{Security Mitigations and Recommendations}
 \begin{enumerate}
     \item \textbf{Intrusion Detection Systems (IDS):}
-    IDS play a critical role in monitoring network traffic for abnormal patterns or unauthorized activities. For CAN networks, anomaly-based IDS detect deviations from typical message patterns, such as sudden high-priority messages indicative of Denial-of-Service (DoS) attacks. In AE, signature-based IDS can identify known vulnerabilities, such as MAC spoofing or Man-in-the-Middle (MitM) attacks, ensuring timely detection and response.
+    IDS play a critical role in monitoring network traffic for abnormal patterns or unauthorized activities.\cite{rathore2022invehicle} For CAN networks, anomaly-based IDS detect deviations from typical message patterns, such as sudden high-priority messages indicative of Denial-of-Service (DoS) attacks. In AE, signature-based IDS can identify known vulnerabilities, such as MAC spoofing or Man-in-the-Middle (MitM) attacks, ensuring timely detection and response. \cite{Evaluationframe}
 
     \item \textbf{Firewalls:}
     Firewalls act as a barrier between critical in-vehicle networks and external interfaces. For AE, firewalls are deployed at gateways to filter malicious traffic and enforce rules that limit communication to authorized systems. This segmentation reduces the risk of remote exploits spreading across network domains.
@@ -327,11 +428,13 @@ The 2014 Jeep Cherokee attack by researchers Charlie Miller and Chris Valasek hi
 
     \item \textbf{Port Security:}
     Port security restricts access to Ethernet switches by allowing only authorized devices to connect. In AE networks, port security can mitigate unauthorized joins or MAC address spoofing, enhancing control over physical access points.
-\end{enumerate}
-\section{Emerging Future Trends For Securing IVNs}
 
-\subsection{Blockchain Technology}
-Blockchain offers a decentralized and tamper-proof mechanism for securing in-vehicle communications and data exchanges. By creating immutable logs of network activity, blockchain can help:
+\end{enumerate}
+
+\subsection{Emerging Future Trends For Securing IVNs}
+
+\subsubsection{Blockchain Technology}
+Blockchain offers a decentralized and tamper-proof mechanism for securing in-vehicle communications and data exchanges.\cite{khatri2021security} By creating immutable logs of network activity, blockchain can help:
 \begin{itemize}
     \item Ensure message integrity by validating data exchanged between ECUs.
     \item Detect unauthorized changes by maintaining a transparent history of events.
@@ -339,7 +442,7 @@ Blockchain offers a decentralized and tamper-proof mechanism for securing in-veh
 
 \end{itemize}
 
-\subsection{Zero Trust Architecture (ZTA)}
+\subsubsection{Zero Trust Architecture (ZTA)}
 ZTA shifts the security paradigm by assuming that no device or user within a network is inherently trustworthy. In the context of automotive IVNs, ZTA principles can be applied to:
 \begin{itemize}
     \item Authenticate and authorize every interaction within the network, regardless of its origin.
@@ -357,16 +460,18 @@ These  technologies hold significant potential to transform the security landsca
     \item \textbf{RQ1: What is the current vehicle EE architecture and what is the future trend?}
         \begin{itemize}
             \item Currently, most automotive OEMs use a domain-based architecture where Electronic Control Units (ECUs) with similar functionalities are grouped into functional domains. Each domain has a domain control unit that acts as a gateway for communication between different domains. This interdomain communication happens through the gateway.
+
             \item With the shift towards Vehicle-to-Everything (V2X) and Software-Defined Vehicles (SDV), the trend is gradually moving towards zonal EE architecture. This is a centralized architecture compared to the distributed nature of the domain-based architecture. It consists of a central compute unit and groups ECUs into zones. This High-Performance Compute Unit (HPCU) facilitates over-the-air updates and cloud communication, effectively supporting V2X applications.
+
         \end{itemize}
         
     \item \textbf{RQ2: How are these IVNs (CAN and AE) enablers for the Vehicle EE architecture?}
         \begin{itemize}
-            \item For domain-based architecture, CAN is the main backbone communication protocol; however, due to high bandwidth requirements, in the Zonal EE Architecture, Automotive Ethernet will be used in conjunction with CAN bus for backbone communication. CAN facilitates deterministic, low-latency communication for safety-critical systems and Automotive Ethernet provides the scalability and bandwidth required for data-intensive applications like ADAS, teleoperations, and infotainment.
+            \item For domain based architecture, can is the main backbone communication protocol, however due to high bandwidth requirements, in the Zonal EE Architecture, Automotive Ethernet will be used in conjunction with CAN bus for backbone communication. CAN facilitates deterministic, low-latency communication for safety-critical systems and Automotive Ethernet provides the scalability and bandwidth required for data-intensive applications like ADAS, teleoperations, and infotainment.
         \end{itemize}
 
     \item \textbf{RQ3: What are the key attack surfaces and vulnerabilities of CAN and AE?}
-The attack surface can be categorized into two main groups:
+        The attack surface can be categorized into two main groups:
 
         \begin{itemize}
             \item \textbf{Remote/offboard attack:} These attacks target external communication interfaces and systems, primarily through the telematics unit. The telematics unit is the domain in the vehicle that consists of wireless communication interfaces such as:
@@ -421,8 +526,16 @@ The attack surface can be categorized into two main groups:
 \end{itemize}
 
 
+\newpage
 \section{Conclusion}
--- to be added --
+In conclusion, this report has highlighted the critical security challenges facing in-vehicle networks (IVNs), particularly focusing on the vulnerabilities inherent in the Controller Area Network (CAN) and Automotive Ethernet (AE). As vehicles become increasingly connected and autonomous, the lack of built-in security mechanisms in these protocols poses significant risks, including denial-of-service attacks, spoofing, and man-in-the-middle attacks. The evolution of vehicle E/E architectures towards zonal designs, which integrate both CAN and AE, underscores the need for robust security measures to protect safety-critical systems. Key takeaways include the importance of understanding the evolving architecture, recognizing the vulnerabilities in both CAN and AE, and learning from real-world attack scenarios such as the 2014 Jeep Cherokee incident. These insights emphasize the urgent need for implementing intrusion detection systems, firewalls, encryption, and secure boot mechanisms to mitigate potential threats.
+
+Moving forward, it is essential for stakeholders in the automotive industry to adopt a proactive approach to IVN security. Emerging technologies such as blockchain and Zero Trust Architecture (ZTA) offer promising solutions for enhancing the security of in-vehicle communications and data exchanges. However, further research is needed to explore the integration of these technologies into existing systems and to evaluate their effectiveness in real-world scenarios. Additionally, regular security audits, continuous monitoring, and collaboration within the industry are crucial to staying ahead of evolving threats. By prioritizing security in the design and maintenance of IVNs, developers and researchers can ensure the safety, reliability, and privacy of next-generation vehicles, ultimately contributing to a more secure automotive ecosystem.
 %%%%%%%%%
 
+
+%  bibliography section
+\newpage
+\bibliographystyle{plain} %  `abbrv`, `unsrt`
+\bibliography{references} 
 \end{document}
